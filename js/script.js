@@ -25,7 +25,7 @@ let editMovies = (movie) => {
 		// A request body - Additional content that is included along with our request, usually a JSON string that represents the resource(s) being created/modified.
 		body: JSON.stringify(movie) // Convert the JS object into a JSON string before sending it to the server.
 	}
-	
+
 	return fetch(`${API_URL}/${movie.id}`, options).then(resp => resp.json()).catch(err => console.error(err));
 }
 
@@ -59,7 +59,7 @@ let createdMovie = movie => {
 		},
 		body: JSON.stringify(movie)
 	};
-	 return fetch(API_URL, options).then(resp => resp.json()).catch(err => console.error(err));
+
 }
 // createdMovie(newMovie).then(data => console.log(data));
 
@@ -77,7 +77,5 @@ let deleteMovie = (id) => {
 }
 
 
+
 deleteMovie(16);
-
-
-
