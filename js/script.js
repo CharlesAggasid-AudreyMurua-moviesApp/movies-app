@@ -48,7 +48,7 @@ let editedMovie = {
 let newMovie = {
 	title: 'Avatar',
 	rating: '10',
-	id: 1,
+	id: 0,
 }
 
 let createdMovie = movie => {
