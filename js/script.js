@@ -59,7 +59,7 @@ let createdMovie = movie => {
 		},
 		body: JSON.stringify(movie)
 	};
-	return fetch(API_URL, options).then(resp => resp.json()).catch(err => console.error(err));
+
 }
 // createdMovie(newMovie).then(data => console.log(data));
 
@@ -75,6 +75,7 @@ let deleteMovie = (id) => {
 	}
 	return fetch(`${API_URL}/${id}`, options).then(resp => resp.json()).catch(err => console.error(err))
 }
+
 
 
 deleteMovie(16);
