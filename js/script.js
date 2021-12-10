@@ -1,6 +1,6 @@
 'use strict';
 
-const API_URL = 'https://cedar-quirky-rest.glitch.me/movies';
+const API_URL = 'https://bird-showy-spur.glitch.me/movies';
 
 //Get All Movies
 let getALLMovies = () => fetch(API_URL).then(resp => resp.json()).catch(err => console.error(err));
@@ -45,22 +45,39 @@ let editedMovie = {
 
 //POST REQUEST
 
-let addMovie = {
+let newMovie = {
 	title: 'Avatar',
-	rating: 10,
-	id: 6,
+	rating: '10',
+	id: 1,
 }
 
-
+let createdMovie = movie => {
 	let options = {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify(addMovie)
+		body: JSON.stringify(movie)
 	};
-	fetch(API_URL, options).then(resp => resp.json()).catch(err => console.error(err));
+	 return fetch(API_URL, options).then(resp => resp.json()).catch(err => console.error(err));
 }
-// createdMovie(addMovie).then(data => console.log(data));
+// createdMovie(newMovie).then(data => console.log(data));
+
+
+// DELETE REQUEST
+
+let deleteMovie = (id) => {
+	let options = {
+		method: 'DELETE',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	}
+	return fetch(`${API_URL}/${id}`, options).then(resp => resp.json()).catch(err => console.error(err))
+}
+
+
+deleteMovie(16);
+
 
 
