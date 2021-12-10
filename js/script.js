@@ -48,19 +48,20 @@ let editedMovie = {
 let addMovie = {
 	title: 'Avatar',
 	rating: 10,
-	id: 6,
+	id: 0,
 }
 
 
+let createdMovie = movie => {
+	//options inside function as a built-in vs selecting one from the outside
 	let options = {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify(addMovie)
-	};
-	fetch(API_URL, options).then(resp => resp.json()).catch(err => console.error(err));
+		body: JSON.stringify(movie)
+	}
+	return fetch(API_URL, options).then(response => response.json()).catch(err => console.error(err));
 }
-// createdMovie(addMovie).then(data => console.log(data));
 
-
+createdMovie(addMovie).then(data => console.log(data)).catch(err => console.error(err));
