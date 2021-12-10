@@ -81,3 +81,19 @@ deleteMovie(16);
 
 
 
+// START APPENDING HTML =================================
+
+const loadingPromise = fetch(API_URL);
+const main = document.querySelector('.card');
+main.innerHTML = "<p>Loading....";
+
+loadingPromise.then(res => res.json()).then(movies => main.innerHTML = listOfMovies(movies));
+
+// function listOfMovies(movies) {
+// 	const movies
+}
+
+
+//poster, title, plot, year, rating, actors, director
+
+
