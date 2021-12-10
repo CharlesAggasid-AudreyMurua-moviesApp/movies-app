@@ -45,22 +45,24 @@ let editedMovie = {
 
 //POST REQUEST
 
-let addMovie = {
+let newMovie = {
 	title: 'Avatar',
-	rating: 10,
-	id: 6,
+	rating: '10',
+	id: 0,
 }
 
-
+let createdMovie = movie => {
 	let options = {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify(addMovie)
+		body: JSON.stringify(movie)
 	};
-	fetch(API_URL, options).then(resp => resp.json()).catch(err => console.error(err));
+	 return fetch(API_URL, options).then(resp => resp.json()).catch(err => console.error(err));
 }
-// createdMovie(addMovie).then(data => console.log(data));
+createdMovie(newMovie).then(data => console.log(data));
+
+
 
 
