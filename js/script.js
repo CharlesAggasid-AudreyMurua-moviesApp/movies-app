@@ -322,4 +322,14 @@ When the initial AJAX request comes back, remove the "loading..." message and re
 
 	fetchMovie(6000);
 
-
+// const API_URL = 'https://bird-showy-spur.glitch.me/movies';
+let sortMoviesAtoZ = () => fetch(API_URL)
+	.then(resp => resp.json())
+	.catch(err => console.error(err));
+	
+sortMoviesAtoZ().then((data) => {
+// console.log(data);
+let completeMovieList = data.sort((a, b) => {
+	console.log(completeMovieList);
+})
+})
