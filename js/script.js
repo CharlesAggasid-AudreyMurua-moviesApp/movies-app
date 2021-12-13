@@ -1,54 +1,31 @@
 'use strict';
-
+/***************************** GET ALL MOVIES  ***********************************/
 const API_URL = 'https://bird-showy-spur.glitch.me/movies';
-
-//Get All Movies
-let getALLMovies = () => fetch(API_URL).then(resp => resp.json()).catch(err => console.error(err));
+let getALLMovies = () => fetch(API_URL)
+.then(resp => resp.json())
+.catch(err => console.error(err));
 getALLMovies().then(data => console.log(data));
 
-// GET REQUEST BY ID
+/*****************************  REQUEST BY ID  ***********************************/
 let getMoviesById = (id) => {
-	return fetch(`${API_URL}/${id}`).then(resp => resp.json()).catch(err => console.error(err))
+	return fetch(`${API_URL}/${id}`)
+	.then(resp => resp.json())
+	.catch(err => console.error(err))
 }
-
 // SHOULD RETURN ID 3
-getMoviesById(3).then(data => console.log(data));
+// getMoviesById(3).then(data => console.log(data));
 
-// EDIT A POST
-let editMovies = (movie) => {
-	let options = {
-		method: 'PUT',
-		headers: {
-			// Content-Type - This tells the server what type of data we are sending with our request. When interacting with a JSN API, this will usually be application/json.
-			'Content-Type': 'application/json',
-		},
-		// A request body - Additional content that is included along with our request, usually a JSON string that represents the resource(s) being created/modified.
-		body: JSON.stringify(movie) // Convert the JS object into a JSON string before sending it to the server.
-	}
-
-	return fetch(`${API_URL}/${movie.id}`, options).then(resp => resp.json()).catch(err => console.error(err));
-}
-
-// If you use the PUT method, and only send an object with 2 of the existing properties, the entire object gets replaced, leaving you with only the properties you passed.
-let editedMovie = {
-	actors: '',
-	director: '',
-	rating: 9,
-	year: '',
-}
-// editMovies(editedMovie).then(data => console.log(data));
-
-// PUT VS PATCH
-// PUT - requires you to resubmit the entire entity.
-// PATCH - only edits properties that currently exist in the posted entity.
-
-
-//POST REQUEST
-
-let newMovie = {
-	title: 'Avatar',
-	rating: '10',
-	id: 0,
+/**************** POST  Note: Duplication is allowed here.  **************/
+let newMovie =     {
+	"title": "B",
+	"rating": "5",
+	"poster": "https://m.media-amazon.com/images/M/MV5BYWMwMzQxZjQtODM1YS00YmFiLTk1YjQtNzNiYWY1MDE4NTdiXkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_SX300.jpg",
+	"year": "2001",
+	"genre": "Drama, History, War",
+	"director": "Ridley Scott",
+	"plot": "160 elite U.S. soldiers drop into Somalia to capture two top lieutenants of a renegade warlord and find themselves in a desperate battle with a large force of heavily-armed Somalis.",
+	"actors": "Josh Hartnett, Ewan McGregor, Tom Sizemore, Eric Bana",
+	"id": 2
 }
 
 let createdMovie = movie => {
@@ -59,13 +36,45 @@ let createdMovie = movie => {
 		},
 		body: JSON.stringify(movie)
 	};
-
+	return fetch(API_URL, options)
+		.then(resp => resp.json())
+		.catch(err => console.error(err));
 }
 // createdMovie(newMovie).then(data => console.log(data));
 
+/** EDIT A POST - PUT  is for checking if resource exists then update , else create new resource **/
 
-// DELETE REQUEST
+let editedMovie = {
+	"title": "Guardians of the Galaxy Vol. 2",
+}
+let editMovies = (movie) => {
+	let options = {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(movie) // Convert the JS object into a JSON string before sending it to the server.
+	}
 
+}
+// editMovies(editedMovie).then(data => console.log(data));
+
+/***************************** PATCH is always for update a resource ***********************************/
+let patchMovie = {
+		"title": "Guardians of the Galaxy Vol. 2 ",
+		"id": 5
+	}
+let patchMovies = (movie) => {
+	let options = {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+
+}
+// patchMovies(patchMovie).then(data => console.log(data));
+
+/***************************** DELETE REQUEST  ***********************************/
 let deleteMovie = (id) => {
 	let options = {
 		method: 'DELETE',
@@ -73,8 +82,39 @@ let deleteMovie = (id) => {
 			'Content-Type': 'application/json'
 		}
 	}
-	return fetch(`${API_URL}/${id}`, options).then(resp => resp.json()).catch(err => console.error(err))
+	return fetch(`${API_URL}/${id}`, options)
+		.then(resp => resp.json())
+		.catch(err => console.error(err))
 }
+// deleteMovie()
+
+
+/*****************************  ***********************************/
+/*****************************  ***********************************/
+/*****************************  ***********************************/
+
+/**
+On page load:
+	
+	Display a "loading..." message
+Make an AJAX request to get a listing of all the movies
+When the initial AJAX request comes back, remove the "loading..." message and replace it with HTML generated from the json response your code receives
+
+**/
+
+
+
+
+// START APPENDING HTML =================================
+
+// const loadingPromise = fetch(API_URL);
+// const main = document.querySelector('.card');
+// main.innerHTML = "<p>Loading....";
+//
+// loadingPromise.then(res => res.json()).then(movies => main.innerHTML = getALLMovies(movies));
+
+// getALLMovies().then(data => console.log(data));
+// }
 
 
 
