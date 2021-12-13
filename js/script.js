@@ -55,9 +55,7 @@ let editMovies = (movie) => {
 		},
 		body: JSON.stringify(movie) // Convert the JS object into a JSON string before sending it to the server.
 	}
-	return fetch(`${API_URL}/${movie.id}`, options)
-	.then(resp => resp.json())
-	.catch(err => console.error(err));
+
 }
 // editMovies(editedMovie).then(data => console.log(data));
 
@@ -72,11 +70,7 @@ let patchMovies = (movie) => {
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify(patchMovie) // Convert the JS object into a JSON string before sending it to the server.
-	}
-	return fetch(`${API_URL}/${movie.id}`, options)
-		.then(resp => resp.json())
-		.catch(err => console.error(err));
+
 }
 // patchMovies(patchMovie).then(data => console.log(data));
 
@@ -123,6 +117,5 @@ When the initial AJAX request comes back, remove the "loading..." message and re
 // }
 
 
-//poster, title, plot, year, rating, actors, director
 
-
+deleteMovie(16);
