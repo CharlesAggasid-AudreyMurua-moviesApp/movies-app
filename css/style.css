@@ -1,0 +1,63 @@
+* {
+	transition: all 0.3s ease-out;
+	}
+
+.card:hover {
+	transform:scale(1.1);
+	}
+
+body{
+	/*color: red;*/
+	/*background: #141414;*/
+	background: url("/wallpaperflare.com_wallpaper.jpg");
+	}
+.navbar{
+	/*background: var(--red);*/
+	background-image: linear-gradient(to bottom right, rgb(255, 0, 0), rgb(150, 0, 0))
+	}
+.card{
+	background: white;
+	border: 3px solid blue;
+	}
+.loading-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	}
+.hidden {
+	display: none;
+	}
+.movie-container {
+	/*display: flex;*/
+	justify-content: center;
+	margin: 15px auto;
+	}
+.movie-columns {
+	display: flex;
+	justify-content: center;
+	margin: 15px auto;
+	}
+	
+.navbar-brand {
+	font-weight: bold;
+	font-size: 24px;
+	/*text-align: center;*/
+	}
+	
+.btn-success {
+	color: black;
+	/*background-image: linear-gradient(to bottom right, rgb(255, 0, 0), rgb(150, 0, 0))*/
+	background: rgb(255,0,0);
+	background: linear-gradient(90deg, rgba(255,0,0,1) 2%, rgba(255,183,0,1) 18%, rgba(200,205,0,1) 32%, rgba(58,164,0,1) 46%, rgba(0,120,114,1) 61%, rgba(14,103,249,1) 74%, rgba(144,4,128,1) 88%, rgba(190,4,36,1) 100%);
+}
+
+div i {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	cursor: pointer;
+	color: red;
+	}
+
+
+
