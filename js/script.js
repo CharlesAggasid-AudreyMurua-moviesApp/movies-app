@@ -115,7 +115,7 @@ When the initial AJAX request comes back, remove the "loading..." message and re
 // START APPENDING HTML =================================
 
 
-	// url for Glitch Movie API
+	// var
 	const url = "https://bird-showy-spur.glitch.me/movies"
 	const mainRow = $('.main-row')
 	const loading = $('.loading')
@@ -123,14 +123,8 @@ When the initial AJAX request comes back, remove the "loading..." message and re
 	let movieModal = $('.modal-div')
 	let movieHTML = ""
 	let modalHTML = ""
-	const deleteOptions = {
-		method: 'DELETE',
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	}
 	
-	const fetchMovie = (delay) => {
+	const getAllMovie = (delay) => {
 		$('.loading-container').css('margin-top', '150px')
 		loading.toggle('hidden')
 		mainRow.toggle('hidden')
@@ -151,8 +145,9 @@ When the initial AJAX request comes back, remove the "loading..." message and re
 	movieHTML = ""
 	modalHTML = ""
 	createModal(data)
+	
 	for(let ele of data) {
-		movieHTML += `<div class="col-12 col-md-6 col-lg-4 movie-columns">
+		movieHTML += `<div class="col-12 col-md-4 col-lg-3 movie-columns">
                             <div class="card" style="width: 18rem;">
                                 <img id="movie${ele.id}" src="${ele.poster}" class="card-img-top" alt="Movie Poster" style="height: 100%; width: auto">
                                 <div class="info${ele.id} hidden">
@@ -163,25 +158,28 @@ When the initial AJAX request comes back, remove the "loading..." message and re
                                 <p class="card-text">Release Year: ${ele.year}</p>
                                 <p class="card-text">Genres: ${ele.genre}</p>
                                 <button class="btn-block btn btn-warning edit-data${ele.id}" data-toggle="modal" data-target="#editModal${ele.id}">Edit</button>
-                                <button id="deleteMovie${ele.id}" class="btn-block btn btn-warning">Delete</button>
+																<div id="delete${ele.id}"><i class="far fa-times-circle"></i></div>
                             </div></div></div></div>`
 	}
-	mainRow.html(movieHTML)
+		const deleteOptions = {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		}
+		 mainRow.html(movieHTML)
+	/**************** DELETE MOVIE ITERATE*****************/
 	for(let ele of data) {
-		$(`#deleteMovie${ele.id}`).click(function () {
-			$(`#deleteMovie${ele.id}`).attr('disabled')
-			let userDelete = confirm(`Are you sure you want to delete ${ele.title}?`)
+		$(`#delete${ele.id}`).click(function () {
+			$(`#delete${ele.id}`).attr('disabled')
 			// DELETE FETCH
-			if(userDelete){
+			// if(userDelete){
 				fetch(`${url}/${ele.id}`, deleteOptions)
 					.then(res => res.json())
 					.then(data => console.log(data))
-					.then(fetchMovie(2000))
-					.then($(`#deleteMovie${ele.id}`).removeAttr('disabled'))
+					.then(getAllMovie(2000))
+					.then($(`#delete${ele.id}`).removeAttr('disabled'))
 					.catch(error => console.error(error))
-			} else {
-				$(`#deleteMovie${ele.id}`).removeAttr('disabled')
-			}
 		})
 		$(`#editMovie${ele.id}`).click(function () {
 			$(`#editMovie${ele.id}`).attr('disabled');
@@ -209,7 +207,7 @@ When the initial AJAX request comes back, remove the "loading..." message and re
 			fetch(`${url}/${ele.id}`, patchOptions)
 				.then(res => res.json())
 				.then(data => console.log(data))
-				.then(fetchMovie(2000))
+				.then(getAllMovie(2000))
 				.then($(`#editMovie${ele.id}`).removeAttr('disabled'))
 				.catch(error => console.error(error))
 		})
@@ -227,20 +225,19 @@ When the initial AJAX request comes back, remove the "loading..." message and re
 	const createModal = data => {
 	for(let ele of data) {
 		modalHTML += `<div class="modal fade" id="editModal${ele.id}" tabindex="-1" role="dialog" aria-labelledby="${ele.id}ModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="${ele.id}ModalLabel">Edit ${ele.title}</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
+                  <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                  <div class="modal-header">
+                            <h5 class="modal-title" id="${ele.id}ModalLabel">Edit ${ele.title}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                   </div>
+                           <div class="modal-body">
                                      <input id="titleInput${ele.id}" type="text" class="form-control mb-2 mr-sm-2" value="${ele.title}">
                                         <input id="yearInput${ele.id}" type="text" class="form-control mb-2 mr-sm-2" value="${ele.year}">
                                         <input id="genreInput${ele.id}" type="text" class="form-control mb-2 mr-sm-2" value="${ele.genre}">
                                         <input id="posterInput${ele.id}" type="text" class="form-control mb-2 mr-sm-2" value="${ele.poster}">
-                                        
                                         <div class="input-group mb-2 mr-sm-2">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">Rating</div>
@@ -278,7 +275,7 @@ When the initial AJAX request comes back, remove the "loading..." message and re
                           <option selected>5</option>`
 		}
 		modalHTML += `</select>
-                            </div>
+                           </div>
                            <textarea id="plotInput${ele.id}" type="text" class="form-control mb-2 mr-sm-2">${ele.plot}</textarea>
                   <div class="modal-footer">
                        <button id="editMovie${ele.id}" class="btn btn-primary" data-dismiss="modal">Submit</button>
@@ -287,23 +284,22 @@ When the initial AJAX request comes back, remove the "loading..." message and re
 	}
 	movieModal.html(modalHTML)
 }
-
-//ADD BUTTON COMPLETE
+/************Add movie button************/
 	addBtn.click(() => {
 	addBtn.attr('disabled');
+	let userPoster = $('#posterInput').val()
 	let userTitle = $('#titleInput').val()
-	let userRating = $('#ratingSelect').val()
 	let userYear = $('#yearInput').val()
 	let userGenre = $('#genreInput').val()
+	let userRating = $('#ratingSelect').val()
 	let userPlot = $('#plotInput').val()
-	let userPoster = $('#posterInput').val()
 	let userMovie = {
+		poster: userPoster,
 		title: userTitle,
-		rating: userRating,
 		year: userYear,
 		genre: userGenre,
-		plot: userPlot,
-		poster: userPoster
+		rating: userRating,
+		plot: userPlot
 	}
 	const postOptions = {
 		method: 'POST',
@@ -315,12 +311,11 @@ When the initial AJAX request comes back, remove the "loading..." message and re
 	fetch(url, postOptions)
 		.then(res => res.json())
 		.then(data => console.log(data))
-		.then(fetchMovie(2000))
+		.then(getAllMovie(2000))
 		.then(addBtn.removeAttr('disabled'))
 		.catch(error => console.error(error))
 })
-
-	fetchMovie(6000);
+	getAllMovie(2000);
 
 // const API_URL = 'https://bird-showy-spur.glitch.me/movies';
 let sortMoviesAtoZ = () => fetch(API_URL)
@@ -330,6 +325,6 @@ let sortMoviesAtoZ = () => fetch(API_URL)
 sortMoviesAtoZ().then((data) => {
 // console.log(data);
 let completeMovieList = data.sort((a, b) => {
-	console.log(completeMovieList);
+	// console.log(completeMovieList);
 })
 })
