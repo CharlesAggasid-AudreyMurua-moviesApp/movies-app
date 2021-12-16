@@ -21,12 +21,47 @@
 
 <!--LOADING CIRCLE-->
 <div class="container-fluid loading-container">
-	<div class="loading hidden">
+	<div class="loading">
 		<div class="spinner-border text-danger" role="status" style="height: 50px; width: 50px; font-weight: bolder">
 			<span class="sr-only">Loading...</span>
 		</div>
 	</div>
 </div>
+
+<!--EDIT MODAL-->
+
+<div class="edit-modal-container"></div>
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
+	 aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+
+				<h5 class="modal-title" id="editModalLabel">Edit</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<label for="editTitle">Movie Title</label>
+					<input type="text" class="form-control" id="editTitle" placeholder="Title">
+					<label for="editGenre">Genre</label>
+					<input type="text" class="form-control" id="editGenre" placeholder="Genre">
+					<label for="editPoster">Poster Url</label>
+					<input type="text" class="form-control" id="editPoster" placeholder="Poster HTTP">
+					<label for="editPlot">Plot</label>
+					<input type="text" class="form-control" id="editPlot" placeholder="Plot">
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" id="edit-button" data-dismiss="modal">Save</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 <!--        MOVIE CONTAINER-->
 <div class="container movie-container">
@@ -48,7 +83,6 @@
 			</div>
 			<div class="modal-body">
 				<input id="titleInput" type="text" class="form-control mb-2 mr-sm-2" placeholder="Title">
-				<input id="yearInput" type="text" class="form-control mb-2 mr-sm-2" placeholder="Release Year">
 				<input id="genreInput" type="text" class="form-control mb-2 mr-sm-2" placeholder="Genre">
 				<input id="posterInput" type="text" class="form-control mb-2 mr-sm-2" placeholder="Poster">
 
@@ -56,7 +90,7 @@
 					<div class="input-group-prepend">
 						<div class="input-group-text">Rating</div>
 					</div>
-					<select id="ratingSelect" class="form-control">
+					<select id="ratingInput" class="form-control">
 						<option>1</option>
 						<option>2</option>
 						<option>3</option>
@@ -68,8 +102,8 @@
 				<textarea id="plotInput" type="text" class="form-control mb-2 mr-sm-2" placeholder="Plot"></textarea>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button id="addMovie" class="btn btn-primary" data-dismiss="modal">Submit</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				<button id="addMovie" class="btn btn-primary" data-dismiss="modal">Add</button>
 			</div>
 		</div>
 	</div>
